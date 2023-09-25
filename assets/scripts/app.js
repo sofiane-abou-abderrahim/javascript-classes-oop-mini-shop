@@ -1,5 +1,22 @@
+class Product {
+  title = 'DEFAULT';
+  imagUrl; // undefined initially
+  description;
+  price;
+} // defines what's inside of that class
+// and what's inside of that class is basically your blueprint of how an object created based on that class should look like
+// inside a property is called a "field"
+// then you can assign to it a default value
+// => Classes do not replace objects as you will see, instead we build objects based on classes
+// Once we create an object, based on such a class, every field will be translated to a property in that object
+
+// Now the question is, how do you now create an object based on such a class?
+
+console.log(new Product());
+
 const productList = {
   products: [
+    // new Product() // So now this gives us a new product object, this returns a new object which has this structure above
     {
       title: 'A pillow',
       imagUrl:
@@ -19,10 +36,8 @@ const productList = {
     const renderHook = document.getElementById('app');
     const prodList = document.createElement('ul');
     prodList.className = 'product-list';
-    // "this" here if we call render() correctly should refer to this productList object,
-    // and therefore "this.product" refers to this array "products"
     for (prod of this.products) {
-      const prodEl = document.createElement('li'); // and then for every product there, we also need to create a new element which we can append to the DOM
+      const prodEl = document.createElement('li');
       prodEl.className = 'product-item';
       prodEl.innerHTML = `
         <div>
@@ -34,53 +49,11 @@ const productList = {
             <button>Add to Cart</button>
           </div>
         </div>
-      `; // Now this product element should of course also output some content about the product
+      `;
       prodList.append(prodEl);
     }
     renderHook.append(prodList);
-  } // method shortand notation
-}; // Now with all of that, we got all the logic stored in the productList object
+  }
+};
 
 productList.render();
-
-/*
-
-It's hard to write proper object oriented code because with that OBJECT LITERAL NOTATION, 
-which is great if we just need to create an object on the fly or just want to group some data together,
-but with that notation, it's hard to write reusable object code.
-
-1. Example 1
-
-For example these objects here (inside of the "products" array), they always have the same structure.
-Now whenever we add a new object here, we have to add it manually with an object literal notation
-and we have to make sure that we don't mistype or forget a property.
-
-=> It would be nicer if we had some way of getting some blueprint for this object,
-which we can just call, some function we can call,
-which gives us such an object or anything like that,
-which in the end just makes sure that we have to pass in a certain amount of arguments
-and then we always get such an object generated
-
-2. Example 2
-
-And the same here.
-This logic for rendering a single product element (prodEl), it's now part of the product list.
-
-=> It would be nice if we could have a standalone object,
-which we could create multiple times, once for every product we have here in our "products" array,
-which holds all that logic so that we don't have to put that logic in here
-but have that logic stored somewhere else in our code
-and then here we just execute it.
-
-Of course that can all be achieved by splitting our code into functions,
-but it might be easier to reason about it if you split it into objects,
-  - where you have a product component object let's say which is responsible for rendering that part (prodEl);
-  - a productList component which is responsible for rendering the overall list (prodList);
-  - and later also a cart component;
-  - maybe a header component which renders some header.
-And besides these components which should be normal objects that just know how to render something,
-  - we also have non-component objects which are just regular objects that hold some data 
-
-=> And that's something which we can build with CLASSES
-
-*/

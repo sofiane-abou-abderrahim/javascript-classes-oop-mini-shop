@@ -5,9 +5,8 @@ now our code however still is such that all the logic lives in the productList,
 time to change that too.
 
 Let's add another class,
-because we can not just create classes which predefine objects which are basically data containers
-
-we can also create classes for objects which hold more logic
+because we can not just create classes which predefine objects which are basically data containers,
+we can also create classes for objects which hold more logic,
 so that in the end our entire application logic is split up across multiple classes
 which we then just connect in some clever way.
 
@@ -34,7 +33,7 @@ class Product {
 // to be precise title, imageUrl and so on,
 // basically what we already have in the Product class,
 // and therefore we can also accept the overall "product" object which we get
-// => So then herein the constructor we could say "this.product is equal to "product",
+// => So then here in the constructor we could say "this.product is equal to "product",
 // and I just expect to get a product which has this structure here in the Product class in ProductItem.
 // I do split this into a product (Product class) in a ProductItem object here,
 // because this product up there (Product class) should just define how a simple product looks like, just which data is in there,
@@ -48,7 +47,7 @@ class Product {
 // so that I create my product element there with "document.createElement",
 // and now here of course when I access "imageUrl" and so on, I have to reach out to my "product" property (in ProductItem),
 // so in here since "render()" belongs to the ProductItem class, it should normally be called on an object created with that class,
-// so therefore here we should have "this" available and "this" should refer to the object created based on the class,
+// so therefore here we should have "this" available and "this" should refer to the object created based on the class ProductItem,
 // Now on "this", we should have a "product" property, so we should be able to do "this.product"and then ".imageUrl"
 // because every "Product" object has an "imageUrl" property,
 // Now with that, I have the logic to render a single product in my product item.

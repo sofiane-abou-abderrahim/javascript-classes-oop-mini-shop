@@ -15,6 +15,11 @@ class Product {
 class shoppingCart {
   items = [];
 
+  addProduct(product) {
+    this.items.push(product);
+    this.totalOutput = `<h2>Total: \$${1}</h2>`; // sets this to the old total plus the new total based on the items we have above
+  }
+
   render() {
     const cartEl = document.createElement('section');
     cartEl.innerHTML = `
@@ -22,7 +27,8 @@ class shoppingCart {
       <button>Order now!</button>
     `;
     cartEl.className = 'cart';
-    return cartEl; // we return it so that wherever we create that shoppingCart, we can append it to the DOM
+    this.totalOutput = cartEl.querySelector('h2'); // adds a new property to the object which is created based on this class
+    return cartEl;
   }
 }
 
@@ -34,6 +40,7 @@ class ProductItem {
   addToCart() {
     console.log('Adding product to cart...');
     console.log(this.product);
+    shoppingCart.addProduct(); // right now, it's not working, but there is a way we can actually make a syntax like this here work
   }
 
   render() {
@@ -82,7 +89,7 @@ class ProductList {
       const prodEl = productItem.render();
       prodList.append(prodEl);
     }
-    return prodList; // we return it to be able to append it in the DOM, as we did in the other classes
+    return prodList;
   }
 }
 
@@ -99,9 +106,7 @@ class Shop {
     renderHook.append(cartEl);
     renderHook.append(prodListEl);
   }
-} // This class combines ProductList and ShoppingCart
-// because the cart (ShoppingCart) item, the cart (ShoppingCart) HTML content is certainly not part of the product list (ProductList)
-// so rendering it here (in ProductList) would be incorrect
+}
 
 const shop = new Shop();
 shop.render();

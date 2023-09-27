@@ -12,6 +12,20 @@ class Product {
   }
 }
 
+class shoppingCart {
+  items = [];
+
+  render() {
+    const cartEl = document.createElement('section');
+    cartEl.innerHTML = `
+      <h2>Total: \$${0}</h2>
+      <button>Order now!</button>
+    `;
+    cartEl.className = 'cart';
+    return cartEl; // we returned it so that wherever we create that shoppingCart, we can append it to the DOM
+  }
+}
+
 class ProductItem {
   constructor(product) {
     this.product = product;
@@ -37,13 +51,7 @@ class ProductItem {
       </div>
     `;
     const addCartButton = prodEl.querySelector('button');
-    addCartButton.addEventListener('click', this.addToCart.bind(this)); // we bind "this" inside addToCart()
-    // => so what "this" inside of this method (addToCart()) refers to the same thing "this" refers to in the line above
-    // and "this" here in this code snippet refers to the entire object (ProductItem)
-    // assuming that we call render() on an instance of this object
-    // which is exactly what we're doing down there (in the ProductList class inside of render() in the for-of loop)
-    // Here we create the instance (const productItem = new ProductItem(prod);)
-    // Here we call render() on that instance (const prodEl = productItem.render();)
+    addCartButton.addEventListener('click', this.addToCart.bind(this));
     return prodEl;
   }
 }
@@ -67,7 +75,6 @@ class ProductList {
   constructor() {}
 
   render() {
-    const renderHook = document.getElementById('app');
     const prodList = document.createElement('ul');
     prodList.className = 'product-list';
     for (const prod of this.products) {
@@ -75,9 +82,24 @@ class ProductList {
       const prodEl = productItem.render();
       prodList.append(prodEl);
     }
-    renderHook.append(prodList);
+    return prodList;
   }
 }
 
-const productList = new ProductList();
-productList.render();
+class Shop {
+  render() {
+    const renderHook = document.getElementById('app');
+
+    const cart = new shoppingCart();
+    const cartEl = cart.render();
+
+    const productList = new ProductList();
+    const prodListEl = productList.render();
+
+    renderHook.append(cartEl);
+    renderHook.append(prodListEl);
+  }
+}
+
+const shop = new Shop();
+shop.render();

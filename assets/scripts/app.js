@@ -17,7 +17,7 @@ class shoppingCart {
 
   addProduct(product) {
     this.items.push(product);
-    this.totalOutput = `<h2>Total: \$${1}</h2>`; // sets this to the old total plus the new total based on the items we have above
+    this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`; // it has to be "innerHTML"
   }
 
   render() {
@@ -27,7 +27,7 @@ class shoppingCart {
       <button>Order now!</button>
     `;
     cartEl.className = 'cart';
-    this.totalOutput = cartEl.querySelector('h2'); // adds a new property to the object which is created based on this class
+    this.totalOutput = cartEl.querySelector('h2');
     return cartEl;
   }
 }
@@ -38,9 +38,7 @@ class ProductItem {
   }
 
   addToCart() {
-    console.log('Adding product to cart...');
-    console.log(this.product);
-    shoppingCart.addProduct(); // right now, it's not working, but there is a way we can actually make a syntax like this here work
+    App.addProductToCart(this.product);
   }
 
   render() {
@@ -97,8 +95,8 @@ class Shop {
   render() {
     const renderHook = document.getElementById('app');
 
-    const cart = new shoppingCart();
-    const cartEl = cart.render();
+    this.cart = new shoppingCart(); // now this is a property of Shop
+    const cartEl = this.cart.render();
 
     const productList = new ProductList();
     const prodListEl = productList.render();
@@ -108,5 +106,19 @@ class Shop {
   }
 }
 
-const shop = new Shop();
-shop.render();
+class App {
+  static cart;
+  // it's optional, but a good practice to add a static field so that we make it clear that we have this static cart property.
+
+  static init() {
+    const shop = new Shop();
+    shop.render();
+    this.cart = shop.cart; // we have to swap that and first render and then we got access to the cart.
+  }
+
+  static addProductToCart(product) {
+    this.cart.addProduct(product);
+  }
+} // So we kind of use this App class and the static method (addProductToCart) as a proxy
+
+App.init();

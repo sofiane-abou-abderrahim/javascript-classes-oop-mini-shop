@@ -22,7 +22,7 @@ class shoppingCart {
       <button>Order now!</button>
     `;
     cartEl.className = 'cart';
-    return cartEl; // we returned it so that wherever we create that shoppingCart, we can append it to the DOM
+    return cartEl; // we return it so that wherever we create that shoppingCart, we can append it to the DOM
   }
 }
 
@@ -82,7 +82,7 @@ class ProductList {
       const prodEl = productItem.render();
       prodList.append(prodEl);
     }
-    return prodList;
+    return prodList; // we return it to be able to append it in the DOM, as we did in the other classes
   }
 }
 
@@ -99,7 +99,9 @@ class Shop {
     renderHook.append(cartEl);
     renderHook.append(prodListEl);
   }
-}
+} // This class combines ProductList and ShoppingCart
+// because the cart (ShoppingCart) item, the cart (ShoppingCart) HTML content is certainly not part of the product list (ProductList)
+// so rendering it here (in ProductList) would be incorrect
 
 const shop = new Shop();
 shop.render();

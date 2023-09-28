@@ -113,7 +113,7 @@ class ProductList {
   // Now again, what will happen here is that when we create an object based on this class,
   // a "products" property will be added automatically and the default value will be that array.
 
-  constructor() {}
+  constructor() {} // we need a constructor and we won't need to set "this.products" to anything because we initialize it anyways (above)
 
   render() {
     const renderHook = document.getElementById('app');

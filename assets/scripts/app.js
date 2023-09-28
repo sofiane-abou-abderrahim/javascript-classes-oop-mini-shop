@@ -42,6 +42,8 @@ class shoppingCart {
     `;
     cartEl.className = 'cart';
     this.totalOutput = cartEl.querySelector('h2'); // adds a new property to the object which is created based on this class
+    // and you can add new properties anywhere in your class, in your object, doesn't have to be inside of the constructor
+    // as you learned earlier in the course, you can always dynamically add new properties to an object.
     return cartEl;
   }
 }

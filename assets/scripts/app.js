@@ -22,6 +22,9 @@ const productList = {
     // "this" here if we call render() correctly should refer to this productList object,
     // and therefore "this.product" refers to this array "products"
     for (prod of this.products) {
+      // "this" here if we call render() correctly should refer to this productList object,
+      // and therefore this "products" refers to this array,
+      // so I'm going through all the elements in there
       const prodEl = document.createElement('li'); // and then for every product there, we also need to create a new element which we can append to the DOM
       prodEl.className = 'product-item';
       prodEl.innerHTML = `

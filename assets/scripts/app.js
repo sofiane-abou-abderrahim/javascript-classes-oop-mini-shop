@@ -95,6 +95,8 @@ class ProductItem {
     `;
     // Now with that, I have the logic to render a single product in my product item
     return prodEl;
+    // returns the created product
+    // and wherever we call render(), we have the responsibility to then use that returned object and append it
   }
 }
 

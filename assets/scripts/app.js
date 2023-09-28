@@ -114,7 +114,8 @@ class App {
   static init() {
     const shop = new Shop();
     shop.render();
-    this.cart = shop.cart; // we have to swap that and first render and then we got access to the cart.
+    this.cart = shop.cart; // So here we can also add a cart property by referring to that cart property on shop, like that.
+    // we have to swap that and first render and then we got access to the cart.
   }
 
   static addProductToCart(product) {

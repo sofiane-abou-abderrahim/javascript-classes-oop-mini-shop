@@ -136,7 +136,7 @@ class ProductList {
 // maybe create a "productList" object now with "new ProductList()",
 // and then there, we could call "ProductList.render()", like that:
 
-const productList = new ProductList();
+const productList = new ProductList(); // here we instantiate our class
 productList.render();
 // with that we should see the same result as before
 

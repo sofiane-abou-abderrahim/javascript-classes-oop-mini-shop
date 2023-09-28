@@ -1,3 +1,13 @@
+/*
+
+Thus far every class works kind of standalone.
+Yes, we returned the created element (prodEl) and use that in other classes.
+But for example, that event listener on the addCartButton, it triggers this method addToCart() and there, nothing happens.
+Well now we have to make sure that when this method is executed, we actually do something which leads to our ShoppingCart class,
+to update our cart class we'll need to re-render.
+
+*/
+
 class Product {
   // title = 'DEFAULT';
   // imageUrl;

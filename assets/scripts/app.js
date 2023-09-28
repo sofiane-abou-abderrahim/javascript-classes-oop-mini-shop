@@ -25,6 +25,12 @@ class shoppingCart {
     return cartEl; // we return it so that wherever we create that shoppingCart, we can append it to the DOM
   }
 }
+// Now where is that place where I want to use the shopping cart though?
+// Well that should probably be a new class which kind of combines ProductList and ShoppingCart
+// because the cart item, the cart HTML content is certainly not part of the ProductList,
+// so rendering it here (in render() in ProductList class) would be incorrect,
+// but that is the thing which we rendered to the screen initially.
+// So we probably add a new class which you could name Shop or whatever you want to call it
 
 class ProductItem {
   constructor(product) {

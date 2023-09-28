@@ -24,6 +24,8 @@ class Product {
 
   constructor(title, image, desc, price) {
     this.title = title;
+    // "this" in here refers to your class (Product) or to be precise,
+    // since this class will be used to create an object, to the object that is created.
     // So "this.title" here refers to the property "title" which is added to product,
     // "title" here refers to the "title" argument.
     this.imageUrl = image;

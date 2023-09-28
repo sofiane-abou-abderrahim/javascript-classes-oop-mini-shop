@@ -31,7 +31,10 @@ class shoppingCart {
     // Thereafter, we could call render() again to re-render this (cartEl in render()) but that for example wouldn't work
     // because it returns a new cart element (return cartEl;), not something we want here,
     // we want to update the existing content instead.
-    this.totalOutput = `<h2>Total: \$${1}</h2>`; // sets this to the old total plus the new total based on the items we have above
+    this.totalOutput = `<h2>Total: \$${1}</h2>`;
+    // we wiil set this {1} to the old total + the new total based on the "items[]" we have above
+    // For the moment, I'll just set it to 1 and we'll add a real dynamic solution later,
+    // for now I just set it to 1 so that we see that it changed at least.
   }
 
   render() {

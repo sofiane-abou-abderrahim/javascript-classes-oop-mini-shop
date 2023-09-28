@@ -126,7 +126,7 @@ class ProductList {
     prodList.className = 'product-list';
     for (const prod of this.products) {
       const productItem = new ProductItem(prod);
-      const prodEl = productItem.render();
+      const prodEl = productItem.render(); // render returns this new object
       prodList.append(prodEl);
     }
     renderHook.append(prodList);

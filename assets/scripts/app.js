@@ -78,10 +78,13 @@ class ProductItem {
 
   render() {
     const prodEl = document.createElement('li');
+    // now here of course when I access imageUrl and so on, I have to reach out to my product property (this.product) above
+    // so in here since render() belongs to this class (ProductItem), it should normally be called on an object created with that class,
+    // so therefore here we should have "this" available and "this" should refer to the object created based on the class
     prodEl.className = 'product-item';
     prodEl.innerHTML = `
       <div>
-        <img src="${this.product.imageUrl}" alt="${this.product.title}" >
+        <img src="${this.product.imageUrl}" alt="${this.product.title}" > 
         <div class="product-item__content">
           <h2>${this.product.title}</h2>
           <h3>\$${this.product.price}</h3>

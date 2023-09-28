@@ -127,3 +127,5 @@ class App {
 } // So we kind of use this App class and the static method (addProductToCart) as a proxy
 
 App.init();
+// you can just call "App" referring to the class itself like this, "".init" like this
+// this will execute this init() method directly on the class itself.

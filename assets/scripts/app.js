@@ -96,7 +96,8 @@ class Shop {
     const renderHook = document.getElementById('app');
 
     this.cart = new shoppingCart(); // now this is a property of Shop
-    const cartEl = this.cart.render();
+    const cartEl = this.cart.render(); // with "this.cart" (above) of course that means that here where I refer to cart,
+    // I also have to use "this.cart"
 
     const productList = new ProductList();
     const prodListEl = productList.render();

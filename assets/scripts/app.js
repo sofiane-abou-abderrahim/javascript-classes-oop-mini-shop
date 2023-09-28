@@ -128,6 +128,8 @@ class ProductList {
       const productItem = new ProductItem(prod);
       const prodEl = productItem.render(); // render returns this new object
       prodList.append(prodEl);
+      // So now we can append product element (prodEl) again
+      // because prodEl is such a DOM object created by render() but by render() in ProductItem
     }
     renderHook.append(prodList);
   }

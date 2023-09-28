@@ -27,6 +27,10 @@ class shoppingCart {
 
   addProduct(product) {
     this.items.push(product);
+    this.render();
+    // Thereafter, we could call render() again to re-render this (cartEl in render()) but that for example wouldn't work
+    // because it returns a new cart element (return cartEl;), not something we want here,
+    // we want to update the existing content instead.
     this.totalOutput = `<h2>Total: \$${1}</h2>`; // sets this to the old total plus the new total based on the items we have above
   }
 

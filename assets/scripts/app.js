@@ -33,6 +33,8 @@ class shoppingCart {
       (prevValue, curItem) => prevValue + curItem.price,
       0
     );
+    // Getters and setters can be nice if you want to add some extra validation,
+    // maybe a fallback or (like here) add some extra transformation when getting a value
     return sum;
   }
 

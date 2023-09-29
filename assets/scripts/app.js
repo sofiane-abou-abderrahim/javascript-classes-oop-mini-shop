@@ -12,10 +12,36 @@ class Product {
   }
 }
 
-class shoppingCart {
-  items = [];
+class ElementAttribute {
+  constructor(attrName, attrValue) {
+    this.name = attrName;
+    this.value = attrValue;
+  }
+}
 
-  // you can add getters and setters to classes as well
+class Component {
+  constructor(renderHookId) {
+    // console.log('Called');
+    this.hookId = renderHookId;
+  }
+
+  createRootElement(tag, cssClasses, attributes) {
+    const rootElement = document.createElement(tag);
+    if (cssClasses) {
+      rootElement.className = cssClasses;
+    }
+    if (attributes && attributes.length > 0) {
+      for (const attr of attributes) {
+        rootElement.setAttribute(attr.name, attr.value);
+      }
+    }
+    document.getElementById(this.hookId).append(rootElement);
+    return rootElement;
+  }
+}
+
+class shoppingCart extends Component {
+  items = [];
 
   set cartItems(value) {
     this.items = value;
@@ -25,36 +51,30 @@ class shoppingCart {
   }
 
   get totalAmount() {
-    // in here you have to return a value in the end
-    // Now the value I want to return here is the cart total
-    // and for that, we can use a technique we learned about in the arrays module
-    // where we simply reduce our list of cart items to a single number.
     const sum = this.items.reduce(
       (prevValue, curItem) => prevValue + curItem.price,
       0
     );
-    // Getters and setters can be nice if you want to add some extra validation,
-    // maybe a fallback or (like here) add some extra transformation when getting a value
     return sum;
+  }
+
+  constructor(renderHookId) {
+    super(renderHookId);
   }
 
   addProduct(product) {
     const updatedItems = [...this.items];
-    // if we wrote "this.items", the setter would be useless, since we are modifying the original items array directly
-    // with the spread operator, the items array is replaced by a new one controlled by the setter.
     updatedItems.push(product);
     this.cartItems = updatedItems;
   }
 
   render() {
-    const cartEl = document.createElement('section');
+    const cartEl = this.createRootElement('section', 'cart');
     cartEl.innerHTML = `
       <h2>Total: \$${0}</h2>
       <button>Order now!</button>
     `;
-    cartEl.className = 'cart';
     this.totalOutput = cartEl.querySelector('h2');
-    return cartEl;
   }
 }
 
@@ -121,13 +141,12 @@ class Shop {
   render() {
     const renderHook = document.getElementById('app');
 
-    this.cart = new shoppingCart();
-    const cartEl = this.cart.render();
+    this.cart = new shoppingCart('app');
+    this.cart.render();
 
     const productList = new ProductList();
     const prodListEl = productList.render();
 
-    renderHook.append(cartEl);
     renderHook.append(prodListEl);
   }
 }

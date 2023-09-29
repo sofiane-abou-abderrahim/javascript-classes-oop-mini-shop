@@ -21,9 +21,6 @@ class ElementAttribute {
 
 class Component {
   constructor(renderHookId) {
-    // console.log('Called');
-    // if your subclass, so the class which extends another class, does not have a constructor,
-    // the constructor of the parent class is automatically called.
     this.hookId = renderHookId;
   }
 
@@ -80,8 +77,9 @@ class shoppingCart extends Component {
   }
 }
 
-class ProductItem {
-  constructor(product) {
+class ProductItem extends Component {
+  constructor(product, renderHookId) {
+    super(renderHookId); // For any work that involves "this", it's required to call super() first
     this.product = product;
   }
 
@@ -90,8 +88,7 @@ class ProductItem {
   }
 
   render() {
-    const prodEl = document.createElement('li');
-    prodEl.className = 'product-item';
+    const prodEl = this.createRootElement('li', 'product-item');
     prodEl.innerHTML = `
       <div>
         <img src="${this.product.imageUrl}" alt="${this.product.title}" >
@@ -105,11 +102,10 @@ class ProductItem {
     `;
     const addCartButton = prodEl.querySelector('button');
     addCartButton.addEventListener('click', this.addToCart.bind(this));
-    return prodEl;
   }
 }
 
-class ProductList {
+class ProductList extends Component {
   products = [
     new Product(
       'A pillow',
@@ -125,31 +121,28 @@ class ProductList {
     )
   ];
 
-  constructor() {}
+  constructor(renderHookId) {
+    super(renderHookId);
+  }
 
   render() {
-    const prodList = document.createElement('ul');
-    prodList.className = 'product-list';
+    this.createRootElement('ul', 'product-list', [
+      new ElementAttribute('id', 'prod-list')
+    ]);
     for (const prod of this.products) {
-      const productItem = new ProductItem(prod);
-      const prodEl = productItem.render();
-      prodList.append(prodEl);
+      const productItem = new ProductItem(prod, 'prod-list'); // pass in the ID of the element where this item should be added to
+      productItem.render();
     }
-    return prodList;
   }
 }
 
 class Shop {
   render() {
-    const renderHook = document.getElementById('app');
-
     this.cart = new shoppingCart('app');
     this.cart.render();
 
-    const productList = new ProductList();
-    const prodListEl = productList.render();
-
-    renderHook.append(prodListEl);
+    const productList = new ProductList('app');
+    productList.render();
   }
 }
 

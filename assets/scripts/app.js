@@ -15,9 +15,31 @@ class Product {
 class shoppingCart {
   items = [];
 
+  // you can add getters and setters to classes as well
+
+  set cartItems(value) {
+    this.items = value;
+    this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(
+      2
+    )}</h2>`;
+  }
+
+  get totalAmount() {
+    // in here you have to return a value in the end
+    // Now the value I want to return here is the cart total
+    // and for that, we can use a technique we learned about in the arrays module
+    // where we simply reduce our list of cart items to a single number.
+    const sum = this.items.reduce(
+      (prevValue, curItem) => prevValue + curItem.price,
+      0
+    );
+    return sum;
+  }
+
   addProduct(product) {
-    this.items.push(product);
-    this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`; // it has to be "innerHTML"
+    const updatedItems = [...this.items];
+    updatedItems.push(product);
+    this.cartItems = updatedItems;
   }
 
   render() {
@@ -39,9 +61,6 @@ class ProductItem {
 
   addToCart() {
     App.addProductToCart(this.product);
-    // "this.product" refers to the product stored in this ProductItem
-    // So here I am utilizing static methods and the fact that we're not working on objects based on classes, but on the class itself
-    // to share some data, share the cart (ShoppingCart) instance for example.
   }
 
   render() {
@@ -98,9 +117,8 @@ class Shop {
   render() {
     const renderHook = document.getElementById('app');
 
-    this.cart = new shoppingCart(); // now this is a property of Shop
-    const cartEl = this.cart.render(); // with "this.cart" (above) of course that means that here where I refer to cart,
-    // I also have to use "this.cart"
+    this.cart = new shoppingCart();
+    const cartEl = this.cart.render();
 
     const productList = new ProductList();
     const prodListEl = productList.render();
@@ -112,27 +130,16 @@ class Shop {
 
 class App {
   static cart;
-  // it's optional, but a good practice to add a static field so that we make it clear that we have this static cart property.
 
   static init() {
     const shop = new Shop();
     shop.render();
-    // this.
-    // just be aware that if you would use "this" in here,
-    // you would always refer to the class itself not to an object instance based on the class
-    this.cart = shop.cart; // So here we can also add a cart property by referring to that cart property on Shop, like that.
-    // we have to swap that and first render and then we got access to the cart because it's in render() where I create the cart
+    this.cart = shop.cart;
   }
 
   static addProductToCart(product) {
     this.cart.addProduct(product);
-    // "this.cart" refers to an instance based on our ShoppingCart class and there we have that addProduct method
-    // then we call addProduct there and forward that "product"
   }
-} // So we kind of use this App class and the static method (addProductToCart) as a proxy
+}
 
 App.init();
-// you can just call "App" referring to the class itself like this, "".init" like this
-// this will execute this init() method directly on the class itself.
-// Now again, we therefore have no App object we work with,
-// instead we directly operate on that class

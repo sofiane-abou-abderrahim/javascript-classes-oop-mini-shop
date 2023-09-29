@@ -126,6 +126,8 @@ class App {
 
   static addProductToCart(product) {
     this.cart.addProduct(product);
+    // "this.cart" refers to an instance based on our ShoppingCart class and there we have that addProduct method
+    // then we call addProduct there and forward that "product"
   }
 } // So we kind of use this App class and the static method (addProductToCart) as a proxy
 

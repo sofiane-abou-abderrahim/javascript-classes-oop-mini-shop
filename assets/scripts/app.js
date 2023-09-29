@@ -40,6 +40,8 @@ class shoppingCart {
 
   addProduct(product) {
     const updatedItems = [...this.items];
+    // if we wrote "this.items", the setter would be useless, since we are modifying the original items array directly
+    // with the spread operator, the items array is replaced by a new one controlled by the setter.
     updatedItems.push(product);
     this.cartItems = updatedItems;
   }

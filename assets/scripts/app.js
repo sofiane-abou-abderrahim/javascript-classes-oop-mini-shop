@@ -22,6 +22,8 @@ class ElementAttribute {
 class Component {
   constructor(renderHookId) {
     // console.log('Called');
+    // if your subclass, so the class which extends another class, does not have a constructor,
+    // the constructor of the parent class is automatically called.
     this.hookId = renderHookId;
   }
 

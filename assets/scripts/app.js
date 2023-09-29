@@ -117,7 +117,7 @@ class App {
     // this.
     // just be aware that if you would use "this" in here,
     // you would always refer to the class itself not to an object instance based on the class
-    this.cart = shop.cart; // So here we can also add a cart property by referring to that cart property on shop, like that.
+    this.cart = shop.cart; // So here we can also add a cart property by referring to that cart property on Shop, like that.
     // we have to swap that and first render and then we got access to the cart.
   }
 

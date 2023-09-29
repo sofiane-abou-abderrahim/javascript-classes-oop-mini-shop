@@ -129,3 +129,5 @@ class App {
 App.init();
 // you can just call "App" referring to the class itself like this, "".init" like this
 // this will execute this init() method directly on the class itself.
+// Now again, we therefore have no App object we work with,
+// instead we directly operate on that class

@@ -39,6 +39,9 @@ class ProductItem {
 
   addToCart() {
     App.addProductToCart(this.product);
+    // "this.product" refers to the product stored in this ProductItem
+    // So here I am utilizing static methods and the fact that we're not working on objects based on classes, but on the class itself
+    // to share some data, share the cart (ShoppingCart) instance for example.
   }
 
   render() {

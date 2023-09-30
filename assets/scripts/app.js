@@ -22,7 +22,13 @@ class ElementAttribute {
 class Component {
   constructor(renderHookId) {
     this.hookId = renderHookId;
+    this.render();
+    // inside of a constructor, "this" will refer to the object that is being created, that's what "new" does for you so to say
   }
+
+  render() {}
+  // I'm adding this so that if someone looks at this class, this person doesn't wonder why we're calling render here
+  // so that we at least see that such a method exists.
 
   createRootElement(tag, cssClasses, attributes) {
     const rootElement = document.createElement(tag);
@@ -79,7 +85,7 @@ class shoppingCart extends Component {
 
 class ProductItem extends Component {
   constructor(product, renderHookId) {
-    super(renderHookId); // For any work that involves "this", it's required to call super() first
+    super(renderHookId);
     this.product = product;
   }
 
@@ -130,19 +136,20 @@ class ProductList extends Component {
       new ElementAttribute('id', 'prod-list')
     ]);
     for (const prod of this.products) {
-      const productItem = new ProductItem(prod, 'prod-list'); // pass in the ID of the element where this item should be added to
-      productItem.render();
+      new ProductItem(prod, 'prod-list');
     }
   }
 }
 
 class Shop {
+  constructor() {
+    this.render();
+  }
+
   render() {
     this.cart = new shoppingCart('app');
-    this.cart.render();
 
-    const productList = new ProductList('app');
-    productList.render();
+    new ProductList('app');
   }
 }
 
@@ -151,7 +158,6 @@ class App {
 
   static init() {
     const shop = new Shop();
-    shop.render();
     this.cart = shop.cart;
   }
 

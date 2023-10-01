@@ -84,8 +84,6 @@ class shoppingCart extends Component {
       <button>Order now!</button>
     `;
     const orderButton = cartEl.querySelector('button');
-    // orderButton.addEventListener('click', this.orderProducts.bind(this));
-    // orderButton.addEventListener('click', () => this.orderProducts());
     orderButton.addEventListener('click', this.orderProducts);
     this.totalOutput = cartEl.querySelector('h2');
   }
@@ -121,15 +119,18 @@ class ProductItem extends Component {
 }
 
 class ProductList extends Component {
-  products = [];
+  #products = [];
+  // the hash symbol is a new exception with this specific meaning inside of a class or inside of an object
+  // where it then turns this or it sets this to a private property.
 
   constructor(renderHookId) {
-    super(renderHookId);
-    this.fetchProducts();
+    super(renderHookId, false);
+    this.render();
+    this.#fetchProducts();
   }
 
-  fetchProducts() {
-    this.products = [
+  #fetchProducts() {
+    this.#products = [
       new Product(
         'A pillow',
         'https://img.freepik.com/psd-gratuit/oreiller-blanc-doux_176382-890.jpg?size=626&ext=jpg',
@@ -147,7 +148,7 @@ class ProductList extends Component {
   }
 
   renderProducts() {
-    for (const prod of this.products) {
+    for (const prod of this.#products) {
       new ProductItem(prod, 'prod-list');
     }
   }
@@ -156,7 +157,7 @@ class ProductList extends Component {
     this.createRootElement('ul', 'product-list', [
       new ElementAttribute('id', 'prod-list')
     ]);
-    if (this.products && this.products.length > 0) {
+    if (this.#products && this.#products.length > 0) {
       this.renderProducts();
     }
   }
